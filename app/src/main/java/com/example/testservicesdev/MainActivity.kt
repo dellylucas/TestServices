@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm:ss")
         var answer: String =  triggerTime.format(formatter)
   */
+
         Stetho.initializeWithDefaults(this);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
