@@ -13,8 +13,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: CatalogViewModel
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
       /*val triggerTime:LocalDateTime =LocalDateTime.ofInstant(
