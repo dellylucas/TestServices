@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@Database(entities = arrayOf(Catalog::class), version = 1)
+@Database(entities = [Catalog::class], version = 1)
  abstract class CityDatabase : RoomDatabase() {
 
     abstract fun cityDao(): CityDao
@@ -19,8 +19,7 @@ import kotlinx.coroutines.launch
         @Volatile
         private var INSTANCE: CityDatabase? = null
 
-        fun getDatabase(context: Context,
-                        scope: CoroutineScope
+        fun getDatabase(context: Context//, scope: CoroutineScope
         ): CityDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
@@ -31,12 +30,13 @@ import kotlinx.coroutines.launch
                     context.applicationContext,
                     CityDatabase::class.java,
                     "Test_DB"
-                ).addCallback(WordDatabaseCallback(scope)).build()
+                )//.addCallback(WordDatabaseCallback(scope))
+                    .build()
                 INSTANCE = instance
                 return instance
             }
         }
-
+/*
         private class WordDatabaseCallback(
             private val scope: CoroutineScope
         ) : RoomDatabase.Callback() {
@@ -45,7 +45,7 @@ import kotlinx.coroutines.launch
                 super.onOpen(db)
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.cityDao())
+                       // populateDatabase(database.cityDao())
                     }
                 }
             }
@@ -57,6 +57,6 @@ import kotlinx.coroutines.launch
                 word = Catalog(2,"Medellin","1556916483")
                 cityDao.insert(word)
             }
-        }
+        }*/
     }
 }
