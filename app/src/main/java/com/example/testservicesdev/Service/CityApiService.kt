@@ -1,4 +1,4 @@
-package com.example.testservicesdev
+package com.example.testservicesdev.Service
 
 import com.example.testservicesdev.Model.catalogsCity
 import io.reactivex.Observable

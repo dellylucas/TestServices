@@ -1,4 +1,4 @@
-package com.example.testservicesdev
+package com.example.testservicesdev.Service
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

@@ -1,4 +1,4 @@
-package com.example.testservicesdev
+package com.example.testservicesdev.ViewModel
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.testservicesdev.Service.CityApiService
+import com.example.testservicesdev.R
 import com.facebook.stetho.Stetho
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

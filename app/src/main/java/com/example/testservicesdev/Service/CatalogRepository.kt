@@ -1,8 +1,9 @@
-package com.example.testservicesdev
+package com.example.testservicesdev.Service
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.example.testservicesdev.Model.Catalog
+import com.example.testservicesdev.Service.CityDao
 
 class CatalogRepository (private val cityDao: CityDao) {
 
