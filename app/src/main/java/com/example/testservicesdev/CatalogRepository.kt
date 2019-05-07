@@ -2,6 +2,7 @@ package com.example.testservicesdev
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
+import com.example.testservicesdev.Model.Catalog
 
 class CatalogRepository (private val cityDao: CityDao) {
 

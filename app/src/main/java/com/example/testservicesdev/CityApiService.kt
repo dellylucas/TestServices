@@ -1,5 +1,6 @@
 package com.example.testservicesdev
 
+import com.example.testservicesdev.Model.catalogsCity
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

@@ -1,12 +1,10 @@
 package com.example.testservicesdev
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -44,25 +42,30 @@ class MainActivity : AppCompatActivity() {
         viewModel.allCity.observe(this, Observer { words ->
               // Update the cached copy of the words in the adapter.
               words?.let {
-                  if (it.isEmpty() && getConnection(this)) {
-                     // viewModel.lastDate= it.last().dateCity
-                     getService()
+                  if (it.isEmpty()) {
+                      if (getConnection(this)) {
+                          getService(null)
+                      }
+                  }else{
+                      viewModel.lastDate= it.last().dateCity
                   }
               }
           })
 
         buttonu.setOnClickListener {
+
             if (getConnection(this)){
                 buttonu.isClickable = false
                 buttonu.text = "Nooo"
-                getService()
+
+                getService(viewModel.lastDate)
             }
 
-            // viewModel.insert(Catalog(112,"Pereira","534635232"))
         }
     }
 
-    private fun getService() {
+    private fun getService(LastDate: String?) {
+        Toast.makeText(this,LastDate,Toast.LENGTH_LONG).show()
         disposable =
             cityApiServe.hitCountCheck()
                 .subscribeOn(Schedulers.io())

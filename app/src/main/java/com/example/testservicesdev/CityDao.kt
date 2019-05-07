@@ -5,11 +5,12 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.testservicesdev.Model.Catalog
 
 @Dao
 interface CityDao {
 
-        @Query("SELECT * from CAT_CITY ORDER BY id ASC")
+        @Query("SELECT * from CAT_CITY ORDER BY date_City ASC")
         fun getAllCities(): LiveData<List<Catalog>>
 
         @Insert(onConflict = OnConflictStrategy.IGNORE)

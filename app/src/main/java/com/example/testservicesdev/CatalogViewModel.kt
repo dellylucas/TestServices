@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.testservicesdev.Model.Catalog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -11,6 +12,8 @@ class CatalogViewModel (application: Application) : AndroidViewModel(application
 
     private val repository: CatalogRepository
     var allCity: LiveData<List<Catalog>>
+    var lastDate: String? = null
+
 
     init {
         val cityDao = CityDatabase.getDatabase(application).cityDao ()
