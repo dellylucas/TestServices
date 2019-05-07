@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.testservicesdev.Service.CatalogRepository
+import com.example.testservicesdev.data.CatalogRepository
 import com.example.testservicesdev.Model.Catalog
-import com.example.testservicesdev.Service.CityDatabase
+import com.example.testservicesdev.data.CityDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
