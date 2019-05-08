@@ -1,4 +1,4 @@
-package com.example.testservicesdev
+package com.example.testservicesdev.ViewModel
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -8,19 +8,25 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.testservicesdev.data.CityApiService
 import com.facebook.stetho.Stetho
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import com.example.testservicesdev.Model.catalogsCity
+import com.example.testservicesdev.R
+import com.example.testservicesdev.data.NetworkClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
 
     private lateinit var viewModel: CatalogViewModel
-    val cityApiServe by lazy {
-        CityApiService.create()
-    }
+
     var disposable: Disposable? = null
 
 
@@ -44,7 +50,7 @@ class MainActivity : AppCompatActivity() {
               words?.let {
                   if (it.isEmpty()) {
                       if (getConnection(this)) {
-                          getService(null)
+                  //        getService(null)
                       }
                   }else{
                       viewModel.lastDate= it.last().dateCity
@@ -65,23 +71,51 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getService(LastDate: String?) {
-        Toast.makeText(this,LastDate,Toast.LENGTH_LONG).show()
-        disposable =
-            cityApiServe.hitCountCheck()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { result ->
-                        viewModel.inserts(result.cities)
-                        buttonu.isClickable = true
-                        buttonu.text = "Action"
-                    },
-                    { error ->
-                        labelprincipal.text = (error.message)
-                        buttonu.isClickable = true
-                        buttonu.text = "Action"
+        Toast.makeText(this, LastDate, Toast.LENGTH_LONG).show()
+
+        val retrofit = NetworkClient.getRetrofitClient()
+        /*
+        The main purpose of Retrofit is to create HTTP calls from the Java interface based on the annotation associated with each method. This is achieved by just passing the interface class as parameter to the create method
+        */
+        val weatherAPIs = retrofit?.create(CityApiService::class.java)
+
+        val call = weatherAPIs?.hitCountCheck()
+
+        call?.enqueue(object : Callback<catalogsCity> {
+            override fun onResponse(call: Call<catalogsCity>, response: Response<catalogsCity>) {
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        val wResponse = response.body()
+
+
                     }
-                )
+                }
+                buttonu.isClickable = true
+                buttonu.text = "Action"
+            }
+
+            override fun onFailure(call: Call<catalogsCity>, t: Throwable) {
+                val wResponse = t.message
+                buttonu.isClickable = true
+                buttonu.text = "Action"
+            }
+        })
+        /*    disposable =
+            cityApiServe.hitCountCheck()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            { result ->
+                viewModel.inserts(result.cities)
+                buttonu.isClickable = true
+                buttonu.text = "Action"
+            },
+            { error ->
+                labelprincipal.text = (error.message)
+                buttonu.isClickable = true
+                buttonu.text = "Action"
+            }
+        )*/
     }
 
     override fun onPause() {
