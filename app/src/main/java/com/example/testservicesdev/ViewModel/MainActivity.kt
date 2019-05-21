@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
           var answer: String =  triggerTime.format(formatter)
     */
 
-        Stetho.initializeWithDefaults(this)
+       Stetho.initializeWithDefaults(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

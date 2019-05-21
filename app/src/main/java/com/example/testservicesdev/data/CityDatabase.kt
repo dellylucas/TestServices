@@ -4,7 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.testservicesdev.Model.Catalog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @Database(entities = [Catalog::class], version = 1)
@@ -16,7 +20,7 @@ import com.example.testservicesdev.Model.Catalog
         @Volatile
         private var INSTANCE: CityDatabase? = null
 
-        fun getDatabase(context: Context//, scope: CoroutineScope
+        fun getDatabase(context: Context, scope: CoroutineScope
         ): CityDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
@@ -27,13 +31,13 @@ import com.example.testservicesdev.Model.Catalog
                     context.applicationContext,
                     CityDatabase::class.java,
                     "Test_DB"
-                )//.addCallback(WordDatabaseCallback(scope))
+                ).addCallback(WordDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
                 return instance
             }
         }
-/*
+
         private class WordDatabaseCallback(
             private val scope: CoroutineScope
         ) : RoomDatabase.Callback() {
@@ -42,7 +46,7 @@ import com.example.testservicesdev.Model.Catalog
                 super.onOpen(db)
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
-                       // populateDatabase(database.cityDao())
+                        populateDatabase(database.cityDao())
                     }
                 }
             }
@@ -54,6 +58,8 @@ import com.example.testservicesdev.Model.Catalog
                 word = Catalog(2,"Medellin","1556916483")
                 cityDao.insert(word)
             }
-        }*/
+        }
+
+
     }
 }

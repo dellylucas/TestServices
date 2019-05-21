@@ -18,7 +18,7 @@ class CatalogViewModel (application: Application) : AndroidViewModel(application
 
 
     init {
-        val cityDao = CityDatabase.getDatabase(application).cityDao ()
+        val cityDao = CityDatabase.getDatabase(application,viewModelScope ).cityDao ()
         repository = CatalogRepository(cityDao)
         allCity = repository.allCity
     }
