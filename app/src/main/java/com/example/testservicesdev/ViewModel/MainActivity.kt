@@ -3,18 +3,19 @@ package com.example.testservicesdev.ViewModel
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.testservicesdev.data.CityApiService
 import com.facebook.stetho.Stetho
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_main.*
 import com.example.testservicesdev.Model.catalogsCity
 import com.example.testservicesdev.R
 import com.example.testservicesdev.data.NetworkClient
+import com.example.testservicesdev.data.RSAEncryption.RSAEncrypter
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        val encrypter = RSAEncrypter()
+        encrypter.getEncryptedString(this,"gcatech")
         viewModel = ViewModelProviders.of(this).get(CatalogViewModel::class.java)
 
         viewModel.allCity.observe(this, Observer { words ->
@@ -85,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<catalogsCity>, response: Response<catalogsCity>) {
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                        val wResponse = response.body()
+                        viewModel.inserts(response.body()!!.cities)
 
 
                     }
@@ -95,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<catalogsCity>, t: Throwable) {
-                val wResponse = t.message
+                labelprincipal.text = (t.message)
                 buttonu.isClickable = true
                 buttonu.text = "Action"
             }
@@ -122,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         disposable?.dispose()
     }
-    private fun getConnection(cont:Context):Boolean{
+    private fun getConnection(cont: Context):Boolean{
 
             val cm = cont.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetworkInfo: NetworkInfo? =cm.activeNetworkInfo
