@@ -8,17 +8,22 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.testservicesdev.data.CityApiService
-import com.facebook.stetho.Stetho
-import io.reactivex.disposables.Disposable
 import com.example.testservicesdev.Model.catalogsCity
 import com.example.testservicesdev.R
+import com.example.testservicesdev.data.CityApiService
 import com.example.testservicesdev.data.NetworkClient
-import com.example.testservicesdev.data.RSAEncryption.RSAEncrypter
+import com.facebook.stetho.Stetho
+import com.google.gson.Gson
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import com.google.gson.reflect.TypeToken
+import com.example.testservicesdev.Model.Catalog
+import retrofit2.adapter.rxjava2.Result.response
 
 
 
@@ -41,35 +46,53 @@ class MainActivity : AppCompatActivity() {
 
        Stetho.initializeWithDefaults(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(com.example.testservicesdev.R.layout.activity_main)
+
+
+/*
 
         val encrypter = RSAEncrypter()
-        encrypter.getEncryptedString(this,"gcatech")
+        encrypter.getEncryptedString(this,"gcatech")*/
         viewModel = ViewModelProviders.of(this).get(CatalogViewModel::class.java)
 
-        viewModel.allCity.observe(this, Observer { words ->
+       viewModel.allCity.observe(this, Observer { words ->
               // Update the cached copy of the words in the adapter.
               words?.let {
                   if (it.isEmpty()) {
                       if (getConnection(this)) {
                   //        getService(null)
                       }
-                  }else{
+                  }/*else{
                       viewModel.lastDate= it.last().dateCity
-                  }
+                  }*/
               }
           })
 
         buttonu.setOnClickListener {
+            var gson = Gson()
+            val in_s = resources.openRawResource(com.example.testservicesdev.R.raw.agregar)
+            val isr = InputStreamReader(in_s)
+            val br = BufferedReader(isr, 8192)
+           /* val jsonReader = JsonReader(
+                InputStreamReader(
+                    response.getEntity()
+                        .getContent(), "UTF-8"
+                )
+            )*/
 
-            if (getConnection(this)){
+
+            var imp = gson.fromJson( br , catalogsCity::class.java)
+          /*  if (getConnection(this)){
                 buttonu.isClickable = false
                 buttonu.text = "Nooo"
 
                 getService(viewModel.lastDate)
-            }
-
+            }*/
+            viewModel.inserts(imp.cities)
+            var asas: Int =0
         }
+
+
     }
 
     private fun getService(LastDate: String?) {
@@ -88,7 +111,6 @@ class MainActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     if (response.body() != null) {
                         viewModel.inserts(response.body()!!.cities)
-
 
                     }
                 }

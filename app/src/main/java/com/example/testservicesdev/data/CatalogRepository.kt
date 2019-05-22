@@ -3,6 +3,7 @@ package com.example.testservicesdev.data
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.example.testservicesdev.Model.Catalog
+import java.lang.reflect.Array
 
 class CatalogRepository (private val cityDao: CityDao) {
 
@@ -15,7 +16,7 @@ class CatalogRepository (private val cityDao: CityDao) {
     }
 
     @WorkerThread
-    suspend fun inserts(catalog: List<Catalog>) {
+    suspend fun inserts(catalog: ArrayList<Catalog>) {
 
         cityDao.inserts(catalog)
     }

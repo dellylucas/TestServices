@@ -1,0 +1,44 @@
+{
+  "cities": [
+    {
+      "id": "100",
+      "city": "Madrid",
+      "dateCity": "2000-05-01T151511Z"
+    },
+    {
+      "id": "101",
+      "city": "Cataluna",
+      "dateCity": "2011-05-01T151511Z"
+    },
+    {
+      "id": "102",
+      "city": "Betis",
+      "dateCity": "2022-05-01T151511Z"
+    },
+    {
+      "id": "103",
+      "city": "Califor",
+      "dateCity": "2012-05-01T151511Z"
+    },
+    {
+      "id": "104",
+      "city": "Manchester",
+      "dateCity": "2019-05-01T151511Z"
+    },
+    {
+      "id": "105",
+      "city": "Quebec",
+      "dateCity": "2019-05-01T151511Z"
+    },
+    {
+      "id": "106",
+      "city": "Atlanta",
+      "dateCity": "2019-05-01T151511Z"
+    },
+    {
+      "id": "107",
+      "city": "xxx",
+      "dateCity": "2022-05-01T151511Z"
+    }
+  ]
+}

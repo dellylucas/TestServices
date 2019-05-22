@@ -18,7 +18,7 @@ class CatalogViewModel (application: Application) : AndroidViewModel(application
 
 
     init {
-        val cityDao = CityDatabase.getDatabase(application,viewModelScope ).cityDao ()
+        val cityDao = CityDatabase.getDatabase(application/*,viewModelScope */).cityDao ()
         repository = CatalogRepository(cityDao)
         allCity = repository.allCity
     }
@@ -27,7 +27,7 @@ class CatalogViewModel (application: Application) : AndroidViewModel(application
         repository.insert(catalog)
     }
 
-    fun inserts(catalog: List<Catalog>) = viewModelScope.launch(Dispatchers.IO) {
+    fun inserts(catalog: ArrayList<Catalog>) = viewModelScope.launch(Dispatchers.IO) {
         repository.inserts(catalog)
     }
 }

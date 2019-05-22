@@ -17,7 +17,7 @@ interface CityDao {
         suspend fun insert(catalog: Catalog)
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
-        suspend fun inserts(catalog: List<Catalog>)
+        suspend fun inserts(catalog: ArrayList<Catalog>)
 
         @Query("DELETE FROM CAT_CITY")
          fun deleteAll()
