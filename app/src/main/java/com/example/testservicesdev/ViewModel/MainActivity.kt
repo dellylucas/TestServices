@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
             var gson = Gson()
             val in_s = resources.openRawResource(com.example.testservicesdev.R.raw.agregar)
             val isr = InputStreamReader(in_s)
+
             val br = BufferedReader(isr, 8192)
            /* val jsonReader = JsonReader(
                 InputStreamReader(
@@ -80,15 +81,15 @@ class MainActivity : AppCompatActivity() {
                 )
             )*/
 
-
-            var imp = gson.fromJson( br , catalogsCity::class.java)
+            var personList: ArrayList<Catalog> = gson.fromJson(br, object : TypeToken<ArrayList<Catalog>>() {}.type)
+           // var imp = gson.fromJson( br , catalogsCity::class.java)
           /*  if (getConnection(this)){
                 buttonu.isClickable = false
                 buttonu.text = "Nooo"
 
                 getService(viewModel.lastDate)
             }*/
-            viewModel.inserts(imp.cities)
+            viewModel.inserts(personList)
             var asas: Int =0
         }
 
